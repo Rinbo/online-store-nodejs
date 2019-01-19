@@ -5,7 +5,6 @@
 
 // Dependencies
 const server = require("./lib/server");
-const lib = require("./lib/data.js");
 
 // Declare the app
 const app = {};
