@@ -5,7 +5,7 @@
 
 // Dependencies
 const server = require("./lib/server");
-
+const keys = require("./lib/keys")
 // Declare the app
 const app = {};
 
@@ -13,6 +13,7 @@ const app = {};
 app.init = function() {
   // Start the server
   server.init();
+  
 };
 
 // Self executing
