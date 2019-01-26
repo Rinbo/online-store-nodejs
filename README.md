@@ -1,7 +1,5 @@
 # Pizza Ordering Node.js
 
-## Homework Assignment #2 @Pirple Node.js Master Class
-
 Example project for creating an API endpoint with node.js for:
 
 - Creating a user
