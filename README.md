@@ -1,9 +1,9 @@
 # Pizza Ordering Node.js
 
-Example project for creating an API endpoint with node.js for:
+Example project for creating an API endpoint with node.js with the following features:
 
-- Creating a user
-- Adding pizzas to a cart
+- Create a user
+- Add pizzas to a cart
 - Making an order and handling transactions using Stripe
 - Send an email receipt using Mailgun
 
