@@ -4,7 +4,7 @@ Example project for creating an API endpoint with node.js with the following fea
 
 - Create a user
 - Add pizzas to a cart
-- Making an order and handling transactions using Stripe
+- Make an order and handle transactions using Stripe
 - Send an email receipt using Mailgun
 
 Access to the API is managed with a token with a default expiry of one hour. No npm packages were used in this application
