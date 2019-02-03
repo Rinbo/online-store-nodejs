@@ -536,6 +536,27 @@ app.tokenRenewalLoop = function() {
   }, 1000 * 60);
 };
 
+// Bind the add-to-cart buttons
+app.addToCart = function(pizza) {
+  // Check if there is a cart in localstorage. If there is add new pizza to that cart, else create a new cart
+  let cart = {};
+  cart = JSON.parse(localStorage.getItem("cart"));
+  if (cart) {
+    if (cart.pizzas.indexOf(pizza) > -1) {
+      cart.amounts[cart.pizzas.indexOf(pizza)] += 1;
+    } else {
+      cart.pizzas.push(pizza);
+      cart.amounts.push(1);
+    }
+  } else {
+    cart = {};
+    cart.pizzas = [pizza];
+    cart.amounts = [1];
+  }
+  const cartString = JSON.stringify(cart);
+  localStorage.setItem("cart", cartString);
+};
+
 // Init (bootstrapping)
 app.init = function() {
   // Bind all form submissions
