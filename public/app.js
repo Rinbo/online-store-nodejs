@@ -299,7 +299,7 @@ app.formResponseProcessor = function(formId, requestPayload, responsePayload) {
   const formsWithSuccessMessages = [
     "accountEdit1",
     "accountEdit2",
-    "checksEdit1"
+    "checkout1"
   ];
   if (formsWithSuccessMessages.indexOf(formId) > -1) {
     document.querySelector("#" + formId + " .formSuccess").style.display =
@@ -466,6 +466,16 @@ app.loadAccountEditPage = function() {
             responsePayload.lastName;
           document.querySelector("#accountEdit1 .displayEmailInput").value =
             responsePayload.email;
+          document.querySelector("#accountEdit1 .displayStreetInput").value =
+            responsePayload.streetAddress;
+
+          // Put the hidden phone field into both forms
+          const hiddenEmailInputs = document.querySelectorAll(
+            "input.hiddenEmailInput"
+          );
+          for (let i = 0; i < hiddenEmailInputs.length; i++) {
+            hiddenEmailInputs[i].value = responsePayload.email;
+          }
         } else {
           // If the request comes back as something other than 200, log the user our (on the assumption that the api is temporarily down or the users token is bad)
           app.logUserOut();

@@ -93,6 +93,14 @@ body.loggedIn .header ul li.loggedOut {
   display: none;
 }
 
+body.loggedOut .ctaWrapper a.loggedOut {
+  display: inline-block;
+}
+
+body.loggedIn .ctaWrapper a.loggedOut {
+  display: none;
+}
+
 .header .logo {
   text-align: left;
   padding: 0 0 0 90px;
