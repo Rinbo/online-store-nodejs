@@ -338,3 +338,72 @@ td a:active {
   margin-top: 40px;
   display: none;
 }
+
+/* Styling for pizza menu */
+
+.column {
+  float: left;
+  width: 180px;
+  border: solid white 1px;
+  padding: 20px;
+}
+
+.pizza-container {
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: auto auto auto auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+  font-size: 18px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+}
+
+.image {
+  margin: auto;
+  width: 180px;
+  height: auto;
+  vertical-align: middle;
+}
+
+.price {
+  float: left;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 30px;
+  color: white;
+}
+
+.add-to-cart {
+  float: right;
+  background-color: #214478;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  line-height: 18px;
+  text-align: center;
+  width: 55px;
+}
+
+.add-to-cart:hover {
+  background-color: #2e5fa8;
+  transition: 0.5s;
+  border: solid gray 0.5px;
+  width: 70px;
+}
+
+.bottom-banner {
+  padding: 5px 15px 5px 15px;
+  background-color: lightseagreen;
+  line-height: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+}

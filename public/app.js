@@ -256,10 +256,9 @@ app.bindForms = function() {
 
 // Form response processor
 app.formResponseProcessor = function(formId, requestPayload, responsePayload) {
-  const functionToCall = false;
   // If account creation was successful, try to immediately log the user in
   if (formId == "accountCreate") {
-    // Take the phone and password, and use it to log the user in
+    // Take the email and password, and use it to log the user in
     const newPayload = {
       email: requestPayload.email,
       password: requestPayload.password
@@ -441,7 +440,7 @@ app.loadDataOnPage = function() {
 
 // Load the account edit page specifically
 app.loadAccountEditPage = function() {
-  // Get the phone number from the current token, or log the user out if none is there
+  // Get the email from the current token, or log the user out if none is there
   const email =
     typeof app.config.sessionToken.email == "string"
       ? app.config.sessionToken.email
@@ -469,7 +468,7 @@ app.loadAccountEditPage = function() {
           document.querySelector("#accountEdit1 .displayStreetInput").value =
             responsePayload.streetAddress;
 
-          // Put the hidden phone field into both forms
+          // Put the hidden email field into both forms
           const hiddenEmailInputs = document.querySelectorAll(
             "input.hiddenEmailInput"
           );
