@@ -79,6 +79,16 @@ textarea {
   font-weight: 900 !important;
   font-size: 11px;
   color: #fff;
+  padding: 10px;
+}
+.header ul li a:hover {
+  text-transform: uppercase;
+  font-weight: 900 !important;
+  font-size: 11px;
+  color: black;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .header ul li.loggedIn {
@@ -407,3 +417,12 @@ td a:active {
   grid-template-columns: auto auto;
   justify-content: space-between;
 }
+
+.button-wrapper {
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: right;
+  padding:40px;
+}
+
+

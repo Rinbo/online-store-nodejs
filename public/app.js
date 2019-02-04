@@ -552,9 +552,21 @@ app.addToCart = function(pizza) {
     cart = {};
     cart.pizzas = [pizza];
     cart.amounts = [1];
+    document.getElementById("menu-checkout").style.display = "block";
   }
   const cartString = JSON.stringify(cart);
   localStorage.setItem("cart", cartString);
+};
+
+// Bind checkout button
+
+app.loadCheckoutButton = function() {
+  let checkoutButton = document.getElementById("menu-checkout");
+  if (localStorage.getItem("cart")) {
+    checkoutButton.style.display = "block";
+  } else {
+    checkoutButton.style.display = "none";
+  }
 };
 
 // Init (bootstrapping)
@@ -573,6 +585,8 @@ app.init = function() {
 
   // Load data on page
   app.loadDataOnPage();
+
+  app.loadCheckoutButton();
 };
 
 // Call the init processes after the window loads
