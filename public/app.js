@@ -432,9 +432,13 @@ app.loadDataOnPage = function() {
     app.loadMenuPage();
   }
 
-  // Logic for check details page
+  // Logic for checkout page
   if (primaryClass == "checkout") {
     app.loadCheckoutPage();
+  }
+
+  if (primaryClass == "cartCreate") {
+    app.loadCartPage();
   }
 };
 
@@ -507,7 +511,108 @@ app.loadMenuPage = function() {
       function(statusCode, responsePayload) {
         if (statusCode == 200) {
           // @TODO Logic for pizza ordering
+          app.loadCheckoutButton();
           console.log("Menu page");
+        } else {
+          // If the request comes back as something other than 200, log the user our (on the assumption that the api is temporarily down or the users token is bad)
+          app.logUserOut();
+        }
+      }
+    );
+  } else {
+    app.logUserOut();
+  }
+};
+
+app.loadCartPage = function() {
+  // Get the email from the current token, or log the user out if none is there
+  const email =
+    typeof app.config.sessionToken.email == "string"
+      ? app.config.sessionToken.email
+      : false;
+  if (email) {
+    // Fetch the user data
+    const queryStringObject = {
+      email: email
+    };
+    app.client.request(
+      undefined,
+      "api/users",
+      "GET",
+      queryStringObject,
+      undefined,
+      function(statusCode, responsePayload) {
+        if (statusCode == 200) {
+          app.displayCart();
+          console.log("Menu page");
+        } else {
+          // If the request comes back as something other than 200, log the user our (on the assumption that the api is temporarily down or the users token is bad)
+          app.logUserOut();
+        }
+      }
+    );
+  } else {
+    app.logUserOut();
+  }
+};
+
+// Read localStorage and load it on page
+app.displayCart = function() {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  if (!cart) {
+    document.getElementById("cap").innerHTML =
+      "There is nothing in your cart. Go back to menu to order some";
+  } else {
+    if (cart.pizzas.indexOf(1) > -1) {
+      document.getElementById("cap").innerHTML = `${
+        cart.amounts[cart.pizzas.indexOf(1)]
+      } Capprissiosa`;
+    }
+
+    if (cart.pizzas.indexOf(2) > -1) {
+      document.getElementById("marg").innerHTML = `${
+        cart.amounts[cart.pizzas.indexOf(2)]
+      } Margarita`;
+    }
+    if (cart.pizzas.indexOf(3) > -1) {
+      document.getElementById("haw").innerHTML = `${
+        cart.amounts[cart.pizzas.indexOf(3)]
+      } Hawaii`;
+    }
+    if (cart.pizzas.indexOf(4) > -1) {
+      document.getElementById("bos").innerHTML = `${
+        cart.amounts[cart.pizzas.indexOf(4)]
+      } Bosse's Special`;
+    }
+  }
+};
+
+// Create the cart for when the user clicks to move to payment [lazy path]
+app.createCart = function() {
+  const cart = JSON.parse(localStorage.getItem("cart"));
+
+  // Get the email from the current token, or log the user out if none is there
+  const email =
+    typeof app.config.sessionToken.email == "string"
+      ? app.config.sessionToken.email
+      : false;
+
+  if (email) {
+    const payload = {};
+    payload.pizzas = cart.pizzas;
+    payload.amounts = cart.amounts;
+    payload.email = email;
+    debugger;
+    app.client.request(
+      undefined,
+      "api/carts",
+      "POST",
+      undefined,
+      payload,
+      function(statusCode, responsePayload) {
+        if (statusCode == 200) {
+          window.location = "/checkout";
         } else {
           // If the request comes back as something other than 200, log the user our (on the assumption that the api is temporarily down or the users token is bad)
           app.logUserOut();
@@ -552,16 +657,15 @@ app.addToCart = function(pizza) {
     cart = {};
     cart.pizzas = [pizza];
     cart.amounts = [1];
-    document.getElementById("menu-checkout").style.display = "block";
+    document.getElementById("goto-cart").style.display = "block";
   }
   const cartString = JSON.stringify(cart);
   localStorage.setItem("cart", cartString);
 };
 
-// Bind checkout button
-
+// Make sure the checkout button is shown if there is something in the cart
 app.loadCheckoutButton = function() {
-  let checkoutButton = document.getElementById("menu-checkout");
+  let checkoutButton = document.getElementById("goto-cart");
   if (localStorage.getItem("cart")) {
     checkoutButton.style.display = "block";
   } else {
@@ -585,8 +689,6 @@ app.init = function() {
 
   // Load data on page
   app.loadDataOnPage();
-
-  app.loadCheckoutButton();
 };
 
 // Call the init processes after the window loads
