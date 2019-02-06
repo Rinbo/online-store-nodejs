@@ -49,7 +49,16 @@ NODE_ENV=production node index.js
 ```
 
 Server will listen on ports 3001 and 5001 for http and https request respectively
+## Frontend
+- Sign up to the service
+- Add Pizzas to the cart
+![menu png](https://user-images.githubusercontent.com/37734235/52374074-99f77500-2a5c-11e9-9b88-fa32161f5202.jpg)
+- Review your order and then fill in your credit card details
+![checkout png](https://user-images.githubusercontent.com/37734235/52374078-9c59cf00-2a5c-11e9-910c-89abb3c2559a.jpg)
+- If the Stripe Payment went throught you will be emailed a receipt and a modal will display the some useful info
+![success png](https://user-images.githubusercontent.com/37734235/52374084-9e239280-2a5c-11e9-8911-743a2d1b9ab7.jpg)
 
+## API Section
 #### Requests
 
 The below instructions assumes requests to staging server on port 3000
