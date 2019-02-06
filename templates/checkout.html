@@ -1,0 +1,34 @@
+<h1>Checkout</h1>
+<h2>Dinner is coming up!</h2>
+
+<div id="checkoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 style="color: green">Success!<h2>
+      <div id="message"></div>
+    </div>
+  </div>
+
+<div class="formWrapper">
+  <form id="checkout" action="/api/order" method="POST">
+    <div class="formError"></div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Card number</div>
+      <input type="field" name="card-number" placeholder="4242 4242 4242 4242" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">CVC</div>
+      <input type="field" name="cvc" placeholder="123" />
+    </div>
+    <div class="inputWrapper">
+      <div class="inputLabel">Expiry date</div>
+      <input type="date" name="exp" placeholder="123" />
+    </div>
+    <div class="inputWrapper">
+      <input type="hidden" name="cardToken" value="tok_visa" />
+    </div>
+    <div class="inputWrapper ctaWrapper">
+      <button type="submit" class="cta blue">Pay</button>
+    </div>
+  </form>
+</div>

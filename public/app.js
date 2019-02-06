@@ -160,7 +160,6 @@ app.bindForms = function() {
           document.querySelector("#" + formId + " .formSuccess").style.display =
             "none";
         }
-
         // Turn the inputs into a payload
         const payload = {};
         const elements = this.elements;
@@ -208,6 +207,13 @@ app.bindForms = function() {
               }
             }
           }
+        }
+
+        // If this is the checkout form add email and tok_visa for proff of concept
+
+        if (formId == "checkout") {
+          payload.email = app.config.sessionToken.email;
+          payload.cardToken = "tok_visa";
         }
 
         // If the method is DELETE, the payload should be a queryStringObject instead
@@ -288,6 +294,7 @@ app.formResponseProcessor = function(formId, requestPayload, responsePayload) {
       }
     );
   }
+
   // If login was successful, set the token in localstorage and redirect the user
   if (formId == "sessionCreate") {
     app.setSessionToken(responsePayload);
@@ -295,11 +302,8 @@ app.formResponseProcessor = function(formId, requestPayload, responsePayload) {
   }
 
   // If forms saved successfully and they have success messages, show them
-  const formsWithSuccessMessages = [
-    "accountEdit1",
-    "accountEdit2",
-    "checkout1"
-  ];
+  const formsWithSuccessMessages = ["accountEdit1", "accountEdit2"];
+
   if (formsWithSuccessMessages.indexOf(formId) > -1) {
     document.querySelector("#" + formId + " .formSuccess").style.display =
       "block";
@@ -311,9 +315,23 @@ app.formResponseProcessor = function(formId, requestPayload, responsePayload) {
     window.location = "/account/deleted";
   }
 
-  // If the user just created a new check successfully, redirect back to the dashboard
+  // If the payment went through, delete cart in local storage and redirect to landing page
+  // and display a success modal
   if (formId == "checkout") {
-    window.location = "/menu";
+    localStorage.removeItem("cart");
+    const modal = document.getElementById("checkoutModal");
+    const span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    document.getElementById("message").innerHTML = responsePayload.response;
+    span.onclick = function() {
+      modal.style.display = "none";
+      window.location = "/";
+    };
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
   }
 
   // If the user just deleted a check, redirect them to the dashboard
@@ -430,11 +448,6 @@ app.loadDataOnPage = function() {
   // Logic for menu page
   if (primaryClass == "menu") {
     app.loadMenuPage();
-  }
-
-  // Logic for checkout page
-  if (primaryClass == "checkout") {
-    app.loadCheckoutPage();
   }
 
   if (primaryClass == "cartCreate") {
@@ -588,10 +601,9 @@ app.displayCart = function() {
   }
 };
 
-// Create the cart for when the user clicks to move to payment [lazy path]
+// Create the cart on the backend when the user clicks to move to payment [lazy path]
 app.createCart = function() {
   const cart = JSON.parse(localStorage.getItem("cart"));
-
   // Get the email from the current token, or log the user out if none is there
   const email =
     typeof app.config.sessionToken.email == "string"
@@ -603,7 +615,6 @@ app.createCart = function() {
     payload.pizzas = cart.pizzas;
     payload.amounts = cart.amounts;
     payload.email = email;
-    debugger;
     app.client.request(
       undefined,
       "api/carts",
@@ -622,12 +633,6 @@ app.createCart = function() {
   } else {
     app.logUserOut();
   }
-};
-
-// Load the checkout page specifically
-app.loadCheckoutPage = function() {
-  // @TODO Logic for checkout page
-  console.log("Checkout page");
 };
 
 // Loop to renew token often
