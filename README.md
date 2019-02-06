@@ -1,13 +1,13 @@
 # Pizza Ordering Node.js
 
-Example project for creating an API endpoint with node.js with the following features:
+Example project for creating an API endpoint with node.js and a frontend client with the following features:
 
 - Create a user
 - Add pizzas to a cart
 - Make an order and handle transactions using Stripe
 - Send an email receipt using Mailgun
 
-Access to the API is managed with a token with a default expiry of one hour. No npm packages were used in this application
+Access to the API is managed with a token with a default expiry of one hour. No npm packages were used in this application.
 
 ## Installation
 
