@@ -218,7 +218,7 @@ app.bindForms = function() {
 
         // If the method is DELETE, the payload should be a queryStringObject instead
         const queryStringObject = method == "DELETE" ? payload : {};
-        
+
         // Call the API
         app.client.request(
           undefined,
@@ -400,7 +400,6 @@ app.renewToken = function(callback) {
       undefined,
       payload,
       function(statusCode, responsePayload) {
-        
         // Display an error on the form if needed
         if (statusCode == 200) {
           // Get the new token details
@@ -620,7 +619,12 @@ app.createCart = function() {
       { email },
       undefined,
       function(statusCode, responsePayload) {
-        if (statusCode !== 200) {
+        const amounts =
+          typeof responsePayload.amounts == "object" &&
+          responsePayload instanceof Array
+            ? responsePayload.amounts
+            : [];
+        if (cart.amounts !== responsePayload.amounts) {
           // It does not exist so lets create it
           const payload = {};
           payload.pizzas = cart.pizzas;
@@ -633,7 +637,6 @@ app.createCart = function() {
             undefined,
             payload,
             function(statusCode, responsePayload) {
-
               if (statusCode == 200) {
                 window.location = "/checkout";
               } else {
