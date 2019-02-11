@@ -1,13 +1,13 @@
 # Pizza Ordering Node.js
 
-Example project for creating an API endpoint with node.js with the following features:
+Example project for creating an API endpoint with node.js and a frontend client with the following features:
 
 - Create a user
 - Add pizzas to a cart
 - Make an order and handle transactions using Stripe
 - Send an email receipt using Mailgun
 
-Access to the API is managed with a token with a default expiry of one hour. No npm packages were used in this application
+Access to the API is managed with a token with a default expiry of one hour. No npm packages were used in this application.
 
 ## Installation
 
@@ -49,7 +49,16 @@ NODE_ENV=production node index.js
 ```
 
 Server will listen on ports 3001 and 5001 for http and https request respectively
+## Frontend
+- Sign up to the service
+- Add Pizzas to the cart
+![menu png](https://user-images.githubusercontent.com/37734235/52374074-99f77500-2a5c-11e9-9b88-fa32161f5202.jpg)
+- Review your order and then fill in your credit card details
+![checkout png](https://user-images.githubusercontent.com/37734235/52374078-9c59cf00-2a5c-11e9-910c-89abb3c2559a.jpg)
+- If the Stripe Payment went throught you will be emailed a receipt and a modal will display the some useful info
+![success png](https://user-images.githubusercontent.com/37734235/52374084-9e239280-2a5c-11e9-8911-743a2d1b9ab7.jpg)
 
+## API Section
 #### Requests
 
 The below instructions assumes requests to staging server on port 3000
