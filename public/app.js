@@ -218,7 +218,7 @@ app.bindForms = function() {
 
         // If the method is DELETE, the payload should be a queryStringObject instead
         const queryStringObject = method == "DELETE" ? payload : {};
-
+        
         // Call the API
         app.client.request(
           undefined,
@@ -400,6 +400,7 @@ app.renewToken = function(callback) {
       undefined,
       payload,
       function(statusCode, responsePayload) {
+        
         // Display an error on the form if needed
         if (statusCode == 200) {
           // Get the new token details
@@ -611,22 +612,39 @@ app.createCart = function() {
       : false;
 
   if (email) {
-    const payload = {};
-    payload.pizzas = cart.pizzas;
-    payload.amounts = cart.amounts;
-    payload.email = email;
+    //Check if a cart already exists
     app.client.request(
       undefined,
       "api/carts",
-      "POST",
+      "GET",
+      { email },
       undefined,
-      payload,
       function(statusCode, responsePayload) {
-        if (statusCode == 200) {
-          window.location = "/checkout";
+        if (statusCode !== 200) {
+          // It does not exist so lets create it
+          const payload = {};
+          payload.pizzas = cart.pizzas;
+          payload.amounts = cart.amounts;
+          payload.email = email;
+          app.client.request(
+            undefined,
+            "api/carts",
+            "POST",
+            undefined,
+            payload,
+            function(statusCode, responsePayload) {
+
+              if (statusCode == 200) {
+                window.location = "/checkout";
+              } else {
+                // If the request comes back as something other than 200, log the user out (on the assumption that the api is temporarily down or the users token is bad)
+                app.logUserOut();
+              }
+            }
+          );
         } else {
-          // If the request comes back as something other than 200, log the user our (on the assumption that the api is temporarily down or the users token is bad)
-          app.logUserOut();
+          // Cart exists so just redirect user to payment
+          window.location = "/checkout";
         }
       }
     );
