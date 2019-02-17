@@ -1,14 +1,13 @@
 /*
-* Unit tests 
-*
-*/
-
+ * Unit tests
+ *
+ */
 
 // Dependencies
 const helpers = require("../lib/helpers");
 const assert = require("assert");
 
-const unit = {}
+const unit = {};
 
 unit["helpers.getANumber should return number"] = function(done) {
   const val = helpers.getANumber();
@@ -30,3 +29,5 @@ unit["helpers.getANumber should return 2"] = function(done) {
   assert.equal(val, 2);
   done();
 };
+
+module.exports = unit;
