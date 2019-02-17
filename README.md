@@ -158,3 +158,4 @@ That's it. The order will be placed and you will receive a reciept of the transa
 ## CLI Interface
 
 After starting the app, interface with it through the CLI. The following actions are currently available:
+![cli](https://user-images.githubusercontent.com/37734235/52808835-2a523d00-308f-11e9-9397-e3d30b3aa2b2.png)
