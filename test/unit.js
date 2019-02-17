@@ -23,10 +23,10 @@ unit["helpers.getANumber should return 1"] = function(done) {
   done();
 };
 
-// Assert that the getANumber function is returning 2
-unit["helpers.getANumber should return 2"] = function(done) {
+// Assert that the getANumber function is not returning 2
+unit["helpers.getANumber should not return 2"] = function(done) {
   const val = helpers.getANumber();
-  assert.equal(val, 2);
+  assert.notEqual(val, 2);
   done();
 };
 
