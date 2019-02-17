@@ -1,4 +1,4 @@
-# Pizza Ordering Node.js
+# Online Store - Node.js
 
 Example project for creating an API endpoint and a CLI interface with node.js, aswell as a frontend client with the following features:
 
